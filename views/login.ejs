@@ -1,0 +1,62 @@
+<%- include('parts/html-head') %>
+
+<%- include('parts/html-navbar') %>
+<div class="container">
+
+    <% if(locals.isLogin){ %>
+    <div>
+        <%= loginData.nickname%>, 您好
+    </div>
+    <P><a href="./logout">登出</a></P>
+    <% }else{ %>
+    <form method="post" onsubmit="return formCheck()">
+        <div class="form-group">
+            <label for="user">User</label>
+            <input type="text" class="form-control" id="user" name="user" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+
+        <button type="submit" class="btn btn-info">Submit</button>
+    </form>
+        <script>
+            function formCheck(){ 
+            // TODO: 檢查欄位有沒有值, 格式對不對
+
+            //$.post('./login', {user: "", password: ""}, function(data){
+                // $.post('./logout', $('form').serialize(), function(data){
+                //     if(data.success){
+                //         location.reload();
+                //         // location.href = location.href;
+                //     }else{
+                //         alert(data.msg);
+                //     }
+                // }, 'json');
+
+                fetch('./login' ,{
+                    method: 'POST',
+                    body: JSON.stringify({
+                        user: document.querySelector('#user').value,
+                        password: document.querySelector('#password').value,
+                    }),
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                })
+                .then(r=>r.json())
+                .then(obj=>{
+                    if(obj.success){
+                        location.reload();
+                   }else{
+                        alert(obj.msg);
+                   } 
+                })
+
+                return false;
+            }
+        </script>
+    <% } %>
+</div>
+<%- include('parts/html-foot') %>

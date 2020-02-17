@@ -1,0 +1,36 @@
+<%- include('../parts/html-head') %>
+
+<%- include('../parts/html-navbar') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped table-bordered mt-4">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">姓名</th>
+            <th scope="col">手機</th>
+            <th scope="col">電郵</th>
+            <th scope="col">生日</th>
+            <th scope="col">地址</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(let i=0; i<rows.length; i++){ %>
+        <tr>
+            <td><%= rows[i].sId %></td>
+            <td><%= rows[i].name %></td>
+            <td><%= rows[i].tel %></td>
+            <td><%= rows[i].email %></td>
+            <td><%= rows[i].birthday %></td>
+            <td><%= rows[i].address %></td>
+        </tr>
+        <% } %>
+        </tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>
+<%- include('../parts/html-foot') %>

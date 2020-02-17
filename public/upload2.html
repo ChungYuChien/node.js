@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+</head>
+<body>
+    <div class="container">
+        <form class="mt-5" name="form1 " action="/try-upload" method="post" enctype="multipart/form-data" onsubmit="return sendForm()">
+            <div class="form-group">
+        <!--        <label for="avatar">image file</label>-->
+                <button type="button" class="btn btn-dark sel-file">Select image</button>
+                <div id="file_txt"></div>
+                <input type="file" class="form-control-file" id="avatar" name="avatar" style="display: none">
+            </div>
+            <button type="submit" class="btn btn-primary">upload</button>
+        </form>
+    </div>
+    
+    
+    
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<script>
+    const $avatar = $('#avatar');
+
+
+    $('.sel-file').click(function(){
+        $avatar.click();
+    });
+
+    $avatar.change(function(){
+        console.log($avatar[0].files[0]);
+        $('#file_txt').text($avatar[0].files[0].name);
+    });
+
+    function sendForm(){
+        const fd = new FormData(document.form1);
+        fetch('/try-upload', {
+            method: 'POST',
+            body: fd
+        })
+            .then(r=>r.json())
+            .then(obj=>console.log(obj));
+
+
+        return false;
+    }
+
+</script>
+</body>
+</html>
